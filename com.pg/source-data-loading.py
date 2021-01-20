@@ -50,4 +50,4 @@ if __name__ == '__main__':
 
 
 
-# spark-submit --master yarn --packages "mysql:mysql-connector-java:8.0.15" test-datmart/com/pg/source-data-loading.py
+# spark-submit --master yarn --packages "mysql:mysql-connector-java:8.0.15" com.pg/source-data-loading.py
