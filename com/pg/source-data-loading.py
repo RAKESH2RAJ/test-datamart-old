@@ -45,7 +45,7 @@ if __name__ == '__main__':
         .load()
 
     txnDF.show()
-    txnDF.write.format("parquet").save("s3a://test-sairam-test/staging/")
+    txnDF.write.format("parquet").save("s3a://test-sairam-test/staging/SB")
 
 
 
