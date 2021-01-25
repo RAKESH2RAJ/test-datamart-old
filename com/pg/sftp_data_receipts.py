@@ -32,6 +32,5 @@ if __name__ == '__main__':
         .load(app_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv")
 
     ol_txn_df.show(5, False)
-    ol_txn_df.write.format("parquet").save("s3a://test-sairam-test/staging1/SB")
 
-# spark-submit --packages "com.springml:spark-sftp_2.11:1.1.1" com/pg/sftp_source-data-loading.py
+# spark-submit --packages "com.springml:spark-sftp_2.11:1.1.1" com/pg/sftp_data_receipts.py
