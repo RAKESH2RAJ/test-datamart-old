@@ -4,13 +4,16 @@ source_list:
 
 s3_conf:
   s3_bucket: test-sairam-test
+  staging_dir: staging
 
-mysql_conf:
-  dbtable: testdb.TRANSACTIONSYNC
-  partition_column: App_Transaction_Id
-  query : "(select * from testdb.TRANSACTIONSYNC where Internal_Member_Id = 'PC7135361') as t"
+SB:
+  mysql_conf:
+    dbtable: testdb.TRANSACTIONSYNC
+    partition_column: App_Transaction_Id
+    query : "(select * from testdb.TRANSACTIONSYNC where Internal_Member_Id = 'PC7135361') as t"
 
-sftp_conf:
-    filetype: csv
-    delimiter: |
-    directory: /home/ubuntu/data
+OL:
+  sftp_conf:
+      filetype: csv
+      delimiter: |
+      directory: /home/ubuntu/data
