@@ -1,6 +1,6 @@
 source_list:
-  -SB
-  -OL
+  - SB
+  - OL
 
 s3_conf:
   s3_bucket: test-sairam-test
