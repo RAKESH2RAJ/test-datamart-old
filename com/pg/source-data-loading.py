@@ -43,7 +43,7 @@ if __name__ == '__main__':
         .read.format("jdbc")\
         .option("driver", "com.mysql.cj.jdbc.Driver")\
         .options(**jdbc_params)\
-        .load()
+        .load()\
         .withColumn('ins_date', current_date())
 
     # add the current date to the above df and then you write it
