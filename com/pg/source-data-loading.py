@@ -28,6 +28,7 @@ if __name__ == '__main__':
 
     src_list = app_conf['source_list']
     for src in src_list:
+        print('>>', src)
         if src == 'SB':
             jdbc_params = {"url": ut.get_mysql_jdbc_url(app_secret),
                           "lowerBound": "1",
