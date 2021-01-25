@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql import functions
+from pyspark.sql.functions import current_date
 import yaml
 import os.path
 import utils.aws_utils as ut
