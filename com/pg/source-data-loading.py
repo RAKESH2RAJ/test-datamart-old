@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 .save("s3a://test-sairam-test/staging/" + src)
         elif src == 'CP':
             cp_df = spark.read \
-                .csv('s3a://' + src_conf["s3_conf"]["s3_bucket"] + "/" + src_conf["CP"]["filename"])
+                .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/" + src_conf["CP"]["filename"])
 
             cp_df.show(5, False)
 
