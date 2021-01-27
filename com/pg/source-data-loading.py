@@ -53,7 +53,7 @@ if __name__ == '__main__':
             # add the current date to the above df and then you write it
             txnDF.show()
             txnDF\
-                .write\
+                .write.mode("append")\
                 .partitionBy('ins_date') \
                 .format("parquet") \
                 .save("s3a://test-sairam-test/staging/" + src)
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
             ol_txn_df.show()
             ol_txn_df\
-                .write\
+                .write.mode("append")\
                 .partitionBy('ins_date') \
                 .format("parquet") \
                 .save("s3a://test-sairam-test/staging/" + src)
