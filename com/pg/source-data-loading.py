@@ -102,4 +102,4 @@ if __name__ == '__main__':
                 .csv('s3a://' + src_conf['s3_conf']["s3_bucket"] + src_conf['CP']['filename'])
 
             cp_df.show(5, False)
-# spark-submit --master yarn --packages "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
+# spark-submit --master yarn --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
