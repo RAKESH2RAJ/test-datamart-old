@@ -1,6 +1,5 @@
 source_list:
-  - SB
-  - OL
+  - ADDR
 
 s3_conf:
   s3_bucket: test-sairam-test
@@ -17,3 +16,8 @@ OL:
       filetype: csv
       delimiter: |
       directory: /home/ubuntu/data
+
+ADDR:
+  mongodb_config:
+      database: customers
+      collection: address

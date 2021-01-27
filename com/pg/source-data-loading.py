@@ -78,7 +78,15 @@ if __name__ == '__main__':
                 .format("parquet") \
                 .save("s3a://test-sairam-test/staging/" + src)
 
+        elif src == 'ADDR':
+            students = spark \
+                .read \
+                .format("com.mongodb.spark.sql.DefaultSource") \
+                .option("database", app_conf["mongodb_config"]["database"]) \
+                .option("collection", app_conf["mongodb_config"]["collection"]) \
+                .load()
+
+            students.show()
 
 
-
-# spark-submit --master yarn --packages "mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
+# spark-submit --master yarn --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
