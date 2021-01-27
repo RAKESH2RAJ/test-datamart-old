@@ -101,8 +101,9 @@ if __name__ == '__main__':
             cp_df = spark.read \
                 .option('header', "true") \
                 .option('delimiter', '|') \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + src_conf["filename"])
+                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + src_conf["filename"])\
                 .withColumn('ins_date', current_date())
+
             cp_df.show(5, False)
 
             cp_df \
