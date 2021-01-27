@@ -21,3 +21,5 @@ ADDR:
   mongodb_config:
       database: customers
       collection: address
+CP:
+  filename: KC_Extract_1_20171009.csv
