@@ -99,6 +99,8 @@ if __name__ == '__main__':
                 .save("s3a://test-sairam-test/staging/" + src)
         elif src == 'CP':
             cp_df = spark.read \
+                .option('header', "true") \
+                .option('delimiter', '|') \
                 .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + src_conf["filename"])
 
             cp_df.show(5, False)
