@@ -99,7 +99,8 @@ if __name__ == '__main__':
                 .save("s3a://test-sairam-test/staging/" + src)
         elif src == 'CP':
             cp_df = spark.read \
-                .csv('s3a://' + src_conf['s3_conf']["s3_bucket"] + src_conf['CP']['filename'])
+                .csv('s3a://' + src_conf['s3_conf']["s3_bucket"] + "/" + src_conf['CP']['filename'])
 
             cp_df.show(5, False)
+
 # spark-submit --master yarn --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
