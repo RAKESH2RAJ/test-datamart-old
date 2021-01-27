@@ -92,6 +92,10 @@ if __name__ == '__main__':
 
 
             cust_addr.show()
-
+            cust_addr \
+                .write.mode("append") \
+                .partitionBy('ins_date') \
+                .format("parquet") \
+                .save("s3a://test-sairam-test/staging/" + src)
 
 # spark-submit --master yarn --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.15,com.springml:spark-sftp_2.11:1.1.1" com/pg/source-data-loading.py
