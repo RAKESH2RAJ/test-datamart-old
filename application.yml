@@ -1,5 +1,6 @@
 source_list:
   - ADDR
+  - CP
 
 s3_conf:
   s3_bucket: test-sairam-test
