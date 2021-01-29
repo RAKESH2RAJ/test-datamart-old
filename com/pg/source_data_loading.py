@@ -83,7 +83,7 @@ if __name__ == '__main__':
                 .option("database", src_conf["mongodb_config"]["database"]) \
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
-
+            cust_addr.show()
             cust_addr.printSchema()
 
             cust_addr = cust_addr.select(cust_addr['consumer_id'],
@@ -93,13 +93,13 @@ if __name__ == '__main__':
                              cust_addr['address.state'].alias('state'),
                              current_date().alias('ins_date'))
 
-
             cust_addr.show()
             cust_addr \
                 .write.mode("append") \
                 .partitionBy('ins_date') \
                 .format("parquet") \
                 .save(src_loc)
+
         elif src == 'CP':
             cp_df = spark.read \
                 .option('header', "true") \
