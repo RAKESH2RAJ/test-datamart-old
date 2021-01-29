@@ -1,5 +1,11 @@
 source_list:
+  - SB
+  - OL
   - CP
+  - ADDR
+
+target_list:
+  - REGIS_DIM
 
 s3_conf:
   s3_bucket: test-sairam-test
@@ -23,3 +29,19 @@ ADDR:
       collection: address
 CP:
   filename: KC_Extract_1_20171009.csv
+
+REGIS_DIM:
+  source_data: CP
+  loading_query: >
+    SELECT
+        DATAMART.FN_UUID() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
+        REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
+    FROM
+        (SELECT
+          DISTINCT REGIS_CNSM_ID, CAST(REGIS_CTY_CODE AS SMALLINT), CAST(REGIS_ID AS INTEGER),
+          REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
+        FROM
+          staging_STG_1CP
+        WHERE
+          CAST(INS_TS AS DATE) = CURRENT_DATE
+        ) CP
