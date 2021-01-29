@@ -29,7 +29,7 @@ if __name__ == '__main__':
         tgt_conf = app_conf[tgt]
         stg_loc = "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + app_conf["s3_conf"]["staging_dir"]
         if tgt == 'REGIS_DIM':
-            cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
+            cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"] + "/" + "ins_date=2021-01-27")
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
             cp_df.show()
             regis_dim_df = spark.sql(tgt_conf["loading_query"])
