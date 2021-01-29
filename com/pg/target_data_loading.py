@@ -32,7 +32,20 @@ if __name__ == '__main__':
             cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"] + "/" + "ins_date=2021-01-27")
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
             cp_df.show(5, False)
-            regis_dim_df = spark.sql(tgt_conf["loading_query"])
+            regis_dim_df = spark.sql(
+                SELECT
+                    DATAMART.FN_UUID() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
+                    REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
+                FROM
+                    (SELECT
+                        DISTINCT REGIS_CNSM_ID, CAST(REGIS_CTY_CODE AS SMALLINT), CAST(REGIS_ID AS INTEGER),
+                        REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
+                    FROM
+                        CP
+                    WHERE
+                        CAST(INS_TS AS DATE) = CURRENT_DATE
+                    )
+                CP)
             regis_dim_df.show(5, False)
 
 
