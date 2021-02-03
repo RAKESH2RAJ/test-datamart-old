@@ -2,7 +2,13 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import current_date
 import yaml
 import os.path
+
 import utils.aws_utils as ut
+
+
+def fn_uuid():
+    uid = uuid.uuid1()
+    return uid
 
 if __name__ == '__main__':
 
@@ -22,8 +28,8 @@ if __name__ == '__main__':
         .config("spark.mongodb.input.uri", app_secret["mongodb_config"]["uri"])\
         .getOrCreate()
     spark.sparkContext.setLogLevel('ERROR')
-    FN_UUID = spark.udf \
-        .register("FN_UUID", FN_UUID, StringType())
+    fn_uuid = spark.udf \
+        .register("fn_uuid", fn_uuid, StringType())
     tgt_list = app_conf['target_list']
 
     for tgt in tgt_list:
@@ -36,7 +42,7 @@ if __name__ == '__main__':
 
             regis_dim_df = spark.sql("""
                 SELECT
-                    CUSTOMERS.FN_UUID() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
+                    CUSTOMERS.fn_uuid() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
                     REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
                 FROM
                     (SELECT
