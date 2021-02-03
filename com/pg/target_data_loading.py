@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StringType
 from pyspark.sql.functions import current_date
 import yaml
 import os.path
@@ -42,7 +43,7 @@ if __name__ == '__main__':
 
             regis_dim_df = spark.sql("""
                 SELECT
-                    CUSTOMERS.fn_uuid() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
+                    fn_uuid() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
                     REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
                 FROM
                     (SELECT
