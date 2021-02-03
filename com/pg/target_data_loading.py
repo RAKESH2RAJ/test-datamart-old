@@ -48,11 +48,9 @@ if __name__ == '__main__':
                 FROM
                     (SELECT
                         DISTINCT REGIS_CNSM_ID, CAST(REGIS_CTY_CODE AS SMALLINT), CAST(REGIS_ID AS INTEGER),
-                        REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_TS
+                        REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY
                     FROM
                         CP
-                    WHERE
-                        CAST(INS_TS AS DATE) = CURRENT_DATE
                     )
                 CP""")
             regis_dim_df.show(5, False)
