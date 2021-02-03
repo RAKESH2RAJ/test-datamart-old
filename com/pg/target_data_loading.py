@@ -44,15 +44,15 @@ if __name__ == '__main__':
             regis_dim_df = spark.sql("""
                 SELECT
                     fn_uuid() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
-                    REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_DATE
+                    REGIS_ID, REGIS_DATE, REGIS_LTY_ID AS LTY_ID, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, ins_date
                 FROM
                     (SELECT
                         DISTINCT REGIS_CNSM_ID, CAST(REGIS_CTY_CODE AS SMALLINT), CAST(REGIS_ID AS INTEGER),
-                        REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, INS_DATE
+                        REGIS_LTY_ID, REGIS_DATE, REGIS_CHANNEL, REGIS_GENDER, REGIS_CITY, ins_date
                     FROM
                         CP
                     WHERE
-                        INS_DATE = CURRENT_DATE
+                        ins_date = CURRENT_DATE
                     )
                 CP""")
             regis_dim_df.show(5, False)
