@@ -8,9 +8,6 @@ import os.path
 import utils.aws_utils as ut
 
 
-def fn_uuid():
-    uid = uuid.uuid1()
-    return uid
 
 if __name__ == '__main__':
 
@@ -30,8 +27,12 @@ if __name__ == '__main__':
         .config("spark.mongodb.input.uri", app_secret["mongodb_config"]["uri"])\
         .getOrCreate()
     spark.sparkContext.setLogLevel('ERROR')
-    fn_uuid = spark.udf \
-        .register("fn_uuid", fn_uuid, StringType())
+
+    def fn_uuid():
+        uid = uuid.uuid1()
+        return uid
+
+    fn_uuid = spark.udf.register("fn_uuid", fn_uuid(), StringType())
     tgt_list = app_conf['target_list']
 
     for tgt in tgt_list:
@@ -41,7 +42,6 @@ if __name__ == '__main__':
             cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
             cp_df.printSchema()
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
-            cp_df.show(5, False)
 
             regis_dim_df = spark.sql(tgt_conf["loading_query"])
             regis_dim_df.show(5, False)
