@@ -22,7 +22,8 @@ if __name__ == '__main__':
         .config("spark.mongodb.input.uri", app_secret["mongodb_config"]["uri"])\
         .getOrCreate()
     spark.sparkContext.setLogLevel('ERROR')
-
+    FN_UUID = spark.udf \
+        .register("FN_UUID", FN_UUID, StringType())
     tgt_list = app_conf['target_list']
 
     for tgt in tgt_list:
@@ -32,8 +33,7 @@ if __name__ == '__main__':
             cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"] + "/" + "ins_date=2021-01-27")
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
             cp_df.show(5, False)
-            FN_UUID = spark.udf \
-                .register("FN_UUID", FN_UUID, StringType())
+
             regis_dim_df = spark.sql(
                 SELECT
                     CUSTOMERS.FN_UUID() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
