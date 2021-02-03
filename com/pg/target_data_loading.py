@@ -42,7 +42,7 @@ if __name__ == '__main__':
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
             cp_df.show(5, False)
 
-            regis_dim_df = spark.sql("""tgt_conf["loading_query"]""")
+            regis_dim_df = spark.sql(tgt_conf["loading_query"])
             regis_dim_df.show(5, False)
 
 
