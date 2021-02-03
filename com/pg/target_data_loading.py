@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StringType
-from pyspark.sql.functions import current_date
+from pyspark.sql.functions import *
 import uuid
 import yaml
 import os.path
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     spark.sparkContext.setLogLevel('ERROR')
 
     def fn_uuid():
-        uid = uuid.uuid1()
+        uid = uuid.uuid4()
         return uid
 
     fn_uuid = spark.udf.register("fn_uuid", fn_uuid, StringType())
