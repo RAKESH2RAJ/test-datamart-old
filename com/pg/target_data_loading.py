@@ -32,7 +32,7 @@ if __name__ == '__main__':
         uid = uuid.uuid1()
         return uid
 
-    fn_uuid = spark.udf.register("fn_uuid", fn_uuid(), StringType())
+    fn_uuid = spark.udf.register("fn_uuid", fn_uuid, StringType())
     tgt_list = app_conf['target_list']
 
     for tgt in tgt_list:
