@@ -32,6 +32,8 @@ if __name__ == '__main__':
             cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"] + "/" + "ins_date=2021-01-27")
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
             cp_df.show(5, False)
+            FN_UUID = spark.udf \
+                .register("FN_UUID", FN_UUID, StringType())
             regis_dim_df = spark.sql(
                 SELECT
                     CUSTOMERS.FN_UUID() AS REGIS_KEY, REGIS_CNSM_ID AS CNSM_ID,REGIS_CTY_CODE AS CTY_CODE,
