@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     def fn_uuid():
         uid = uuid.uuid4()
-        return uid
+        return str(uid)
 
     fn_uuid = spark.udf.register("fn_uuid", fn_uuid, StringType())
     tgt_list = app_conf['target_list']
