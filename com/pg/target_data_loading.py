@@ -50,8 +50,8 @@ if __name__ == '__main__':
             cp_df.printSchema()
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
 
-            regis_dim_df = spark.sql(tgt_conf["loading_query"])
-            regis_dim_df.show(5, False)
+            child_dim_df = spark.sql(tgt_conf["loading_query"])
+            child_dim_df.show(5, False)
 
 
 # spark-submit --master yarn --packages "org.apache.hadoop:hadoop-aws:2.7.4" com/pg/target_data_loading.py
