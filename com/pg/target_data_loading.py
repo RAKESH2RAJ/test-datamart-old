@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     fn_uuid = spark.udf.register("fn_uuid", fn_uuid, StringType())
     tgt_list = app_conf['target_list']
-    spark.sql("select fn_uuid() test").show()
+    #spark.sql("select fn_uuid() test").show()
     for tgt in tgt_list:
         tgt_conf = app_conf[tgt]
         stg_loc = "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + app_conf["s3_conf"]["staging_dir"]
