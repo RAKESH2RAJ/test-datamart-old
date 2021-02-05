@@ -60,6 +60,7 @@ if __name__ == '__main__':
 
     jdbc_url = ut.get_redshift_jdbc_url(app_secret)
     print(jdbc_url)
+    stg_loc = "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + app_conf["s3_conf"]["staging_dir"]
     txn_df = spark.read \
         .format("io.github.spark_redshift_community.spark.redshift") \
         .option("url", jdbc_url) \
