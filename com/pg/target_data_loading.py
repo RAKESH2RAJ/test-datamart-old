@@ -50,6 +50,7 @@ if __name__ == '__main__':
 
             regis_dim_df = spark.sql(tgt_conf["loading_query"])
             regis_dim_df.show(5, False)
+            jdbc_url = ut.get_redshift_jdbc_url(app_secret)
             regis_dim_df.coalesce(1).write \
                 .format("io.github.spark_redshift_community.spark.redshift") \
                 .option("url", jdbc_url) \
