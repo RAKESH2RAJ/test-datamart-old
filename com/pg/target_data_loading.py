@@ -37,25 +37,14 @@ if __name__ == '__main__':
         uid = uuid.uuid4()
         return str(uid)
 
-    def REGIS_DIM():
+    def write_into_redshift(dim_df):
         jdbc_url = ut.get_redshift_jdbc_url(app_secret)
-        regis_dim_df.coalesce(1).write \
+        dim_df.coalesce(1).write \
             .format("io.github.spark_redshift_community.spark.redshift") \
             .option("url", jdbc_url) \
             .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
             .option("forward_spark_s3_credentials", "true") \
             .option("dbtable", "PUBLIC.REGIS_DIM") \
-            .mode("overwrite") \
-            .save()
-
-    def CHILD_DIM():
-        jdbc_url = ut.get_redshift_jdbc_url(app_secret)
-        child_dim_df.coalesce(1).write \
-            .format("io.github.spark_redshift_community.spark.redshift") \
-            .option("url", jdbc_url) \
-            .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
-            .option("forward_spark_s3_credentials", "true") \
-            .option("dbtable", "PUBLIC.CHILD_DIM") \
             .mode("overwrite") \
             .save()
 
@@ -72,7 +61,7 @@ if __name__ == '__main__':
 
             regis_dim_df = spark.sql(tgt_conf["loading_query"])
             regis_dim_df.show(5, False)
-            REGIS_DIM()
+            write_into_redshift(regis_dim_df)
 
         elif tgt == 'CHILD_DIM':
             cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
@@ -81,7 +70,7 @@ if __name__ == '__main__':
 
             child_dim_df = spark.sql(tgt_conf["loading_query"])
             child_dim_df.show(5, False)
-            CHILD_DIM()
+            write_into_redshift(child_dim_df)
 
 
 
