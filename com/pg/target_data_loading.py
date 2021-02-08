@@ -48,7 +48,7 @@ if __name__ == '__main__':
             cp_df.printSchema()
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
 
-            regis_dim_df = spark.sql(tgt_conf["loading_query"])
+            regis_dim_df = spark.sql(tgt_conf["loading_query"]).coalesce(1)
             regis_dim_df.show(5, False)
             ut.write_into_redshift(regis_dim_df, app_secret, app_conf, "PUBLIC.REGIS_DIM")
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
             cp_df.printSchema()
             cp_df.createOrReplaceTempView(tgt_conf["source_data"])
 
-            child_dim_df = spark.sql(tgt_conf["loading_query"])
+            child_dim_df = spark.sql(tgt_conf["loading_query"]).coalesce(1)
             child_dim_df.show(5, False)
             ut.write_into_redshift(child_dim_df, app_secret, app_conf, "PUBLIC.CHILD_DIM")
 
