@@ -61,15 +61,16 @@ if __name__ == '__main__':
             child_dim_df.show(5, False)
             ut.write_into_redshift(child_dim_df, app_secret, app_conf, "PUBLIC.CHILD_DIM")
 
-    txn_df = spark.read \
-        .option("header", "true") \
-        .option("delimiter", "|") \
-        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/txn_fct.csv")
+        elif tgt == 'RTL_TXN_FCT':
+            txn_df = spark.read \
+                .option("header", "true") \
+                .option("delimiter", "|") \
+                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/txn_fct.csv")
 
-    txn_df.show(5, False)
+            txn_df.show(5, False)
 
-
-
-
+            txn_dim_df = spark.sql(tgt_conf["loading_query"]).coalesce(1)
+            txn_dim_df.show(5, False)
+            ut.write_into_redshift(txn_dim_df, app_secret, app_conf, "PUBLIC.TXN_DIM")
 
 # spark-submit --executor-memory 5G --driver-memory 5G --executor-cores 3 --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --master yarn --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4,org.apache.hadoop:hadoop-aws:2.7.4" com/pg/target_data_loading.py
