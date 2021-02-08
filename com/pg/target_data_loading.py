@@ -67,21 +67,7 @@ if __name__ == '__main__':
             child_dim_df = spark.sql(tgt_conf["loading_query"])
             child_dim_df.show(5, False)
 
-    jdbc_url = ut.get_redshift_jdbc_url(app_secret)
-    print(jdbc_url)
-    stg_loc = "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/" + app_conf["s3_conf"]["staging_dir"]
-    regis_dim_df.coalesce(1).write\
-        .format("io.github.spark_redshift_community.spark.redshift") \
-        .option("url", jdbc_url) \
-        .option("tempdir", "s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/temp") \
-        .option("forward_spark_s3_credentials", "true") \
-        .option("dbtable", "PUBLIC.TXN_FCT") \
-        .mode("overwrite")\
-        .save()
 
-    print("Completed   <<<<<<<<<")
-
-    txn_df.show(5, False)
 
 
 # spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --master yarn --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4,org.apache.hadoop:hadoop-aws:2.7.4" com/pg/target_data_loading.py
