@@ -66,6 +66,11 @@ CHILD_DIM:
       ) CP
 
 RTL_TXN_FCT:
+  source_data:
+    - OL
+    - SB
+    - REGIS_DIM
+
   loading_query: >
     SELECT
      fn_uuid() AS RTL_TXN_KEY, CAST(TXN.APP_TRANSACTION_ID AS STRING)AS TXN_ID, SIZE(split(REC.PRODUCTS, ',')) AS TXN_ITEM_QTY,
