@@ -4,7 +4,6 @@ from pyspark.sql.functions import *
 import uuid
 import yaml
 import os.path
-
 import utils.aws_utils as ut
 
 
