@@ -64,7 +64,7 @@ if __name__ == '__main__':
         elif tgt == 'RTL_TXN_FCT':
             src_data = app_conf['RTL_TXN_FCT']['source_data']
             for src in src_data:
-                src_conf = app_conf['src']
+                src_conf = app_conf[src]
                 src_df = spark.read.parquet(stg_loc + "/" + src_conf["source_data"])
                 src_df.show()
                 src_df.createOrReplaceTempView(src_conf["source_data"])
