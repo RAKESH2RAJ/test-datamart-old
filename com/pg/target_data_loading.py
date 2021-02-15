@@ -65,9 +65,9 @@ if __name__ == '__main__':
             src_data = app_conf['RTL_TXN_FCT']['source_data']
             for src in src_data:
                 src_conf = app_conf[src]
-                src_df = spark.read.parquet(stg_loc + "/" + src_conf)
+                src_df = spark.read.parquet(stg_loc + "/" + src)
                 src_df.show()
-                src_df.createOrReplaceTempView(src_conf)
+                src_df.createOrReplaceTempView(src)
 
 
 # spark-submit --executor-memory 5G --driver-memory 5G --executor-cores 3 --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --master yarn --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4,org.apache.hadoop:hadoop-aws:2.7.4" com/pg/target_data_loading.py
