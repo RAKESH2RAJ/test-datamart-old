@@ -68,7 +68,6 @@ if __name__ == '__main__':
                 src_df = spark.read.parquet(stg_loc + "/" + src)
                 src_df.show()
                 src_df.createOrReplaceTempView(src)
-
                 rtl_txn_fct_df = spark.sql(app_conf['RTL_TXN_FCT']['loading_query']).coalesce(1)
                 rtl_txn_fct_df.show(5, False)
 
