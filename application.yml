@@ -88,6 +88,6 @@ RTL_TXN_FCT:
       LEFT OUTER JOIN REGIS_DIM REG
       ON TXN.LOYALTY_ID = REG.CNSM_ID
     WHERE
-     ins_date = CURRENT_DATE
+     TXN.ins_date = CURRENT_DATE
      AND (TXN.ins_date = CURRENT_DATE OR TXN.ins_date is NULL )
 
