@@ -65,18 +65,9 @@ if __name__ == '__main__':
             src_data = app_conf['RTL_TXN_FCT']['source_data']
             for src in src_data:
                 src_conf = app_conf[src]
-                if src == 'OL':
-                    cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
-                    cp_df.printSchema()
-                    cp_df.createOrReplaceTempView(tgt_conf["source_data"])
-                elif src == 'SB':
-                    cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
-                    cp_df.printSchema()
-                    cp_df.createOrReplaceTempView(tgt_conf["source_data"])
-                elif src == 'REGIS_DIM':
-                    cp_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
-                    cp_df.printSchema()
-                    cp_df.createOrReplaceTempView(tgt_conf["source_data"])
+                    src_df = spark.read.parquet(stg_loc + "/" + tgt_conf["source_data"])
+                    src_df.show()
+                    src_df.createOrReplaceTempView(tgt_conf["source_data"])
 
 
 # spark-submit --executor-memory 5G --driver-memory 5G --executor-cores 3 --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --master yarn --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,org.apache.spark:spark-avro_2.11:2.4.2,org.apache.hadoop:hadoop-aws:2.7.4,org.apache.hadoop:hadoop-aws:2.7.4" com/pg/target_data_loading.py
