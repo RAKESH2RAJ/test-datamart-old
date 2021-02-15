@@ -89,5 +89,5 @@ RTL_TXN_FCT:
       ON TXN.LOYALTY_ID = REG.CNSM_ID
     WHERE
      ins_date = CURRENT_DATE
-     AND (ins_date = CURRENT_DATE OR ins_date is NULL )
+     AND (TXN.ins_date = CURRENT_DATE OR TXN.ins_date is NULL )
 
