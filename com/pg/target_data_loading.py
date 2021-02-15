@@ -69,8 +69,7 @@ if __name__ == '__main__':
                 src_df.show()
                 src_df.createOrReplaceTempView(src)
             src_table = app_conf['RTL_TXN_FCT']['source_table']
-                jdbc_url = ut.get_redshift_jdbc_url(app_secret)
-                print(jdbc_url)
+            jdbc_url = ut.get_redshift_jdbc_url(app_secret)
                 txn_df = spark.read\
                     .format("io.github.spark_redshift_community.spark.redshift")\
                     .option("url", jdbc_url) \
