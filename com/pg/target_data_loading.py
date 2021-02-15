@@ -62,7 +62,7 @@ if __name__ == '__main__':
             ut.write_into_redshift(child_dim_df, app_secret, app_conf, "PUBLIC.CHILD_DIM")
 
         elif tgt == 'RTL_TXN_FCT':
-        src_data = app_conf['RTL_TXN_FCT']['source_data']
+            src_data = app_conf['RTL_TXN_FCT']['source_data']
             for src in src_data:
                 src_conf = app_conf[src]
                 if src == 'OL':
